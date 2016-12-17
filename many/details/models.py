@@ -7,6 +7,10 @@ class Author(models.Model):
   name = models.CharField(max_length = 100)
   my_order = models.PositiveIntegerField(default=0, blank=False, null=False)
 
+  def edit_link(self):
+    return self.name
+
+
   def __unicode__(self):
     return str(self.name)
 
@@ -30,6 +34,10 @@ class Book(models.Model):
 class Membership(models.Model):
   author = models.ForeignKey(Author)#,on_delete = models.CASCADE
   book = models.ForeignKey(Book)
+
+  @property
+  def edit_link(self):
+    return self.author.edit_link()
 
 
   def __unicode__(self):

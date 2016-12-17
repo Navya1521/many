@@ -10,30 +10,23 @@ from adminsortable2.admin import SortableInlineAdminMixin,SortableAdminMixin
 
 from .models import Author,Book,Membership
 
-class MembershipInline(SortableInlineAdminMixin,admin.TabularInline): #
+class MembershipInline(SortableInlineAdminMixin,admin.TabularInline): #SortableInlineAdminMixin
 	model = Membership
-	# fields = ('book','author',)
-
-# class AuthorInline(SortableInlineAdminMixin,admin.TabularInline):
-# 	model = Author #Book.authors.through
-# 	inlines = (MembershipInline,)
-
-
-class MembershipAdmin(SortableAdminMixin,admin.ModelAdmin):
-	pass
+	readonly_fields = ['author',]	
+	
 
 
 class BookAdmin(SortableAdminMixin,admin.ModelAdmin):
-	list_display = ('title',)
-	inlines = (MembershipInline,)
-	# exclude = ('book',)
+	inlines = (MembershipInline,)	
 		
 		
 class AuthorAdmin(SortableAdminMixin,admin.ModelAdmin):
-	# pass
-	list_display = ('name',)
-	# inlines = (MembershipInline,)
+
+	inlines = (MembershipInline,)
 
 admin.site.register(Book,BookAdmin)
 admin.site.register(Author,AuthorAdmin)
-admin.site.register(Membership,MembershipAdmin)
+
+
+
+# Reference: http://stackoverflow.com/questions/21562645/django-many-to-many-inline-how-to-show-fields-referenced-by-through-model
