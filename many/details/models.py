@@ -17,7 +17,6 @@ class Author(models.Model):
 class Book(models.Model):
   title = models.CharField(max_length = 100)
   authors = models.ManyToManyField(Author, through = 'Membership',blank = False)
-
   my_order = models.PositiveIntegerField(default=0, blank=False, null=False)
 
   def __unicode__(self):
@@ -28,7 +27,7 @@ class Book(models.Model):
     ordering = ('my_order',)
 
 class Membership(models.Model):
-  author = models.ForeignKey(Author)#,on_delete = models.CASCADE
+  author = models.ForeignKey(Author)
   book = models.ForeignKey(Book)
   my_order = models.PositiveIntegerField(default=0, blank=False, null=False)
 
