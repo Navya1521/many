@@ -30,13 +30,11 @@ class Book(models.Model):
 class Membership(models.Model):
   author = models.ForeignKey(Author)#,on_delete = models.CASCADE
   book = models.ForeignKey(Book)
+  my_order = models.PositiveIntegerField(default=0, blank=False, null=False)
 
-
-  def __unicode__(self):
-    return str(self.author)
 
   class Meta(object):
-    ordering = ('author',)
+    ordering = ('my_order',)
   
 
 # Create your models here.
